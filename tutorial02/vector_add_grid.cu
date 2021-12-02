@@ -54,6 +54,9 @@ int main(){
         return 0;
     }
     vector_add<<<blocks, threads>>>(d_out, d_a, d_b, N);
+
+    // Wait for GPU to finish before accessing on host
+    cudaDeviceSynchronize();  
     
     // Transfer data back to host memory
     cudaMemcpy(out, d_out, sizeof(float) * N, cudaMemcpyDeviceToHost);
@@ -75,5 +78,4 @@ int main(){
     free(a); 
     free(b); 
     free(out);
-
 }
