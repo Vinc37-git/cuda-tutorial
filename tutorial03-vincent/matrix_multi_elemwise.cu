@@ -6,8 +6,8 @@
 #include <cuda_runtime.h>
 
 #define N 1000
-#define ROWS 15000//16384
-#define COLS 15000
+#define ROWS 256//16384
+#define COLS 256
 #define MAX_ERR 1e-6
 
 typedef struct {
@@ -46,6 +46,7 @@ __global__ void matrix_multi_elemwise(Matrix OUT, const Matrix A, const Matrix B
     int col = blockIdx.x * blockDim.x + threadIdx.x;
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     //printf("%d, %d\n", col, row);
+    //printf("%f\n", A.elements[1]);
 
     int index = row * A.width + col;  // linearisation of index
 
